@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { NumerologyGrid } from "@/components/numerology/NumerologyGrid";
 
 export default function Dashboard() {
   const [formData, setFormData] = useState({
@@ -160,7 +161,7 @@ export default function Dashboard() {
   return (
     <DashboardLayout>
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Numerology Calculator Form */}
+        {/* Keep existing form section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -510,6 +511,35 @@ export default function Dashboard() {
                             </p>
                           </motion.div>
                         ))}
+                      </div>
+                    </div>
+
+                    {/* Numerology Grid */}
+                    <div className="space-y-4">
+                      <h3 className="text-2xl font-semibold text-primary/80">{t("results.coreNumbers")}</h3>
+                      <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 shadow-sm">
+                        <NumerologyGrid
+                          lifePath={{
+                            value: result.lifePath,
+                            pillar: result.lifePath,
+                            inclusion: result.lifePath
+                          }}
+                          expression={{
+                            value: result.expression.toString(),
+                            pillar: result.expression.toString(),
+                            inclusion: result.expression
+                          }}
+                          intimate={{
+                            value: result.intimate,
+                            pillar: result.intimate,
+                            inclusion: result.intimate
+                          }}
+                          realization={{
+                            value: result.realization.toString(),
+                            pillar: result.realization,
+                            inclusion: result.realization
+                          }}
+                        />
                       </div>
                     </div>
 
