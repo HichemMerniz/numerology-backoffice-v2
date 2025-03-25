@@ -19,6 +19,8 @@ import { toast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { NumerologyGrid } from "@/components/numerology/NumerologyGrid";
+import { DatePicker } from "@/components/ui/date-picker";
+import { format, parse } from "date-fns";
 
 export default function Dashboard() {
   const [formData, setFormData] = useState({
@@ -64,11 +66,9 @@ export default function Dashboard() {
     return true;
   };
 
-  const handleInputChange = (field: string, value: string | boolean) => {
-    if (field === "birthDate" && typeof value === "string") {
-      // Format the input as the user types
-      const formattedDate = formatDateInput(value);
-      setFormData((prev) => ({ ...prev, [field]: formattedDate }));
+  const handleInputChange = (field: string, value: string | boolean | Date) => {
+    if (field === "birthDate" && value instanceof Date) {
+      setFormData((prev) => ({ ...prev, [field]: format(value, "dd/MM/yyyy") }));
     } else {
       setFormData((prev) => ({ ...prev, [field]: value }));
     }
@@ -160,178 +160,170 @@ export default function Dashboard() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Keep existing form section */}
+      <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+        {/* Calculator Form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Card className="backdrop-blur-sm bg-card/50 border-primary/20 shadow-lg">
-            <CardHeader className="space-y-1">
-              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <Card className="backdrop-blur-sm bg-card/50 border-primary/20 shadow-lg overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 pointer-events-none" />
+            <CardHeader className="space-y-1 relative">
+              <CardTitle className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 {t("calculator.title")}
               </CardTitle>
-              <CardDescription className="text-lg text-muted-foreground">
+              <CardDescription className="text-lg text-muted-foreground/80">
                 {t("calculator.description")}
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="relative">
               <div className="grid gap-8">
                 <div className="grid gap-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName" className="text-base font-medium">
-                        {t("calculator.firstName")}
-                      </Label>
-                      <Input
-                        id="firstName"
-                        type="text"
-                        placeholder="Enter first name"
-                        value={formData.firstName}
-                        onChange={(e) => handleInputChange("firstName", e.target.value)}
-                        className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName" className="text-base font-medium">
-                        {t("calculator.lastName")}
-                      </Label>
-                      <Input
-                        id="lastName"
-                        type="text"
-                        placeholder="Enter last name"
-                        value={formData.lastName}
-                        onChange={(e) => handleInputChange("lastName", e.target.value)}
-                        className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label className="text-base font-medium">{t("calculator.middleNames")}</Label>
-                    {formData.middleNames.map((name, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex gap-2"
-                      >
+                  {/* Name Fields Section */}
+                  <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 space-y-6">
+                    <h3 className="text-xl font-semibold text-primary/80">Personal Information</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="firstName" className="text-base font-medium inline-flex items-center gap-2">
+                          {t("calculator.firstName")}
+                          <span className="text-primary">*</span>
+                        </Label>
                         <Input
-                          value={name}
-                          onChange={(e) => handleMiddleNameChange(index, e.target.value)}
-                          placeholder={`Middle name ${index + 1}`}
-                          className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base"
+                          id="firstName"
+                          type="text"
+                          placeholder="Enter first name"
+                          value={formData.firstName}
+                          onChange={(e) => handleInputChange("firstName", e.target.value)}
+                          className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
                         />
-                        {formData.middleNames.length > 1 && (
-                          <Button
-                            variant="destructive"
-                            size="icon"
-                            onClick={() => removeMiddleName(index)}
-                            className="h-12 w-12"
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="lastName" className="text-base font-medium inline-flex items-center gap-2">
+                          {t("calculator.lastName")}
+                          <span className="text-primary">*</span>
+                        </Label>
+                        <Input
+                          id="lastName"
+                          type="text"
+                          placeholder="Enter last name"
+                          value={formData.lastName}
+                          onChange={(e) => handleInputChange("lastName", e.target.value)}
+                          className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <Label className="text-base font-medium">{t("calculator.middleNames")}</Label>
+                      <div className="space-y-3">
+                        {formData.middleNames.map((name, index) => (
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className="flex gap-2"
                           >
-                            <Trash2 className="h-5 w-5" />
-                          </Button>
-                        )}
-                      </motion.div>
-                    ))}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={addMiddleName}
-                      className="mt-2 h-10 text-base"
-                    >
-                      <Plus className="h-4 w-4 mr-2" />
-                      {t("calculator.addMiddleName")}
-                    </Button>
+                            <Input
+                              value={name}
+                              onChange={(e) => handleMiddleNameChange(index, e.target.value)}
+                              placeholder={`Middle name ${index + 1}`}
+                              className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
+                            />
+                            {formData.middleNames.length > 1 && (
+                              <Button
+                                variant="destructive"
+                                size="icon"
+                                onClick={() => removeMiddleName(index)}
+                                className="h-12 w-12 hover:bg-destructive/90 transition-colors"
+                              >
+                                <Trash2 className="h-5 w-5" />
+                              </Button>
+                            )}
+                          </motion.div>
+                        ))}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={addMiddleName}
+                          className="h-10 text-base hover:bg-primary/5 transition-colors"
+                        >
+                          <Plus className="h-4 w-4 mr-2" />
+                          {t("calculator.addMiddleName")}
+                        </Button>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="space-y-3">
-                    <Label htmlFor="birthDate" className="text-base font-medium">
-                      {t("calculator.dob")}
-                    </Label>
-                    <div className="relative">
-                      <Input
-                        id="birthDate"
-                        type="text"
+                  {/* Birth Date Section */}
+                  <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 space-y-4">
+                    <h3 className="text-xl font-semibold text-primary/80">Birth Information</h3>
+                    <div className="space-y-3">
+                      <Label htmlFor="birthDate" className="text-base font-medium inline-flex items-center gap-2">
+                        {t("calculator.dob")}
+                        <span className="text-primary">*</span>
+                      </Label>
+                      <DatePicker
+                        date={formData.birthDate ? parse(formData.birthDate, "dd/MM/yyyy", new Date()) : undefined}
+                        onSelect={(date) => handleInputChange("birthDate", date as Date)}
                         placeholder="DD/MM/YYYY"
-                        value={formData.birthDate}
-                        onChange={(e) => handleInputChange("birthDate", e.target.value)}
-                        maxLength={10}
-                        className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base pr-8"
                       />
-                      {formData.birthDate && validateDate(formData.birthDate) && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500"
-                        >
-                          <CheckCircle2 className="h-5 w-5" />
-                        </motion.div>
-                      )}
-                    </div>
-                    <div className="flex justify-between items-center text-sm">
-                      <p className="text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         Format: DD/MM/YYYY
                       </p>
-                      {formData.birthDate && !validateDate(formData.birthDate) && (
-                        <motion.p
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className="text-red-500 flex items-center gap-1"
-                        >
-                          <AlertCircle className="h-4 w-4" />
-                          Invalid date
-                        </motion.p>
-                      )}
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="maritalName" className="text-base font-medium">
-                      {t("calculator.maritalName")}
-                    </Label>
-                    <Input
-                      id="maritalName"
-                      type="text"
-                      placeholder="Enter marital name (optional)"
-                      value={formData.maritalName}
-                      onChange={(e) => handleInputChange("maritalName", e.target.value)}
-                      className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base"
-                    />
-                  </div>
+                  {/* Additional Information Section */}
+                  <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 space-y-6">
+                    <h3 className="text-xl font-semibold text-primary/80">Additional Information</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="maritalName" className="text-base font-medium">
+                          {t("calculator.maritalName")}
+                        </Label>
+                        <Input
+                          id="maritalName"
+                          type="text"
+                          placeholder="Enter marital name (optional)"
+                          value={formData.maritalName}
+                          onChange={(e) => handleInputChange("maritalName", e.target.value)}
+                          className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="usedFirstName" className="text-base font-medium">
+                          {t("calculator.usedFirstName")}
+                        </Label>
+                        <Input
+                          id="usedFirstName"
+                          type="text"
+                          placeholder="Enter used first name (optional)"
+                          value={formData.usedFirstName}
+                          onChange={(e) => handleInputChange("usedFirstName", e.target.value)}
+                          className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
+                        />
+                      </div>
+                    </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="usedFirstName" className="text-base font-medium">
-                      {t("calculator.usedFirstName")}
-                    </Label>
-                    <Input
-                      id="usedFirstName"
-                      type="text"
-                      placeholder="Enter used first name (optional)"
-                      value={formData.usedFirstName}
-                      onChange={(e) => handleInputChange("usedFirstName", e.target.value)}
-                      className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base"
-                    />
-                  </div>
-
-                  <div className="flex items-center space-x-3 py-2">
-                    <Switch
-                      id="carriedNameFor25Years"
-                      checked={formData.carriedNameFor25Years}
-                      onCheckedChange={(checked: boolean) =>
-                        handleInputChange("carriedNameFor25Years", checked)
-                      }
-                    />
-                    <Label htmlFor="carriedNameFor25Years" className="text-base font-medium">
-                      {t("calculator.carriedNameFor25Years")}
-                    </Label>
+                    <div className="flex items-center space-x-3 py-2">
+                      <Switch
+                        id="carriedNameFor25Years"
+                        checked={formData.carriedNameFor25Years}
+                        onCheckedChange={(checked: boolean) =>
+                          handleInputChange("carriedNameFor25Years", checked)
+                        }
+                      />
+                      <Label htmlFor="carriedNameFor25Years" className="text-base font-medium">
+                        {t("calculator.carriedNameFor25Years")}
+                      </Label>
+                    </div>
                   </div>
 
                   <Button
                     onClick={fetchNumerology}
-                    className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300"
+                    className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 shadow-lg shadow-primary/20"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -549,7 +541,7 @@ export default function Dashboard() {
                         onClick={() => generatePDF(result?.pdfUrl)}
                         variant="outline"
                         className="flex items-center gap-2 h-12 text-lg font-semibold hover:bg-primary/5 transition-all duration-300"
-                        disabled={isGenerating}
+                        disabled={true}
                       >
                         {isGenerating ? (
                           <>

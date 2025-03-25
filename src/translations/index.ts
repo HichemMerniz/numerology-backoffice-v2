@@ -58,44 +58,6 @@ export const translationsA = {
     'numerology.lifePath.8.brief': 'Ambitious and material success-oriented',
     'numerology.lifePath.9.brief': 'Humanitarian and compassionate soul',
     
-    // Results
-    'results.title': 'Numerology Results',
-    'results.coreNumbers': 'Core Numbers',
-    'results.lifePath': 'Life Path Number',
-    'results.expression': 'Expression Number',
-    'results.soulUrge': 'Soul Urge Number',
-    'results.intimate': 'Intimate Number',
-    'results.realization': 'Realization Number',
-    'results.health': 'Health Number',
-    'results.sentiment': 'Sentiment Number',
-    'results.cycles': 'Life Cycles',
-    'results.challenges': 'Life Challenges',
-    'results.firstMinor': 'First Minor Challenge',
-    'results.secondMinor': 'Second Minor Challenge',
-    'results.major': 'Major Challenge',
-    'results.realizations': 'Life Realizations',
-    'results.personalityTraits': 'Personality Traits',
-    'results.generateReport': 'Generate PDF Report',
-    'results.generating': 'Generating PDF...',
-    'results.pdfSuccess': 'PDF generated successfully',
-    'results.pdfError': 'Failed to generate PDF',
-    
-    // Login Page
-    'login.title': 'Welcome Back',
-    'login.subtitle': 'Enter your credentials to access your account',
-    'login.email': 'Email',
-    'login.password': 'Password',
-    'login.submit': 'Sign In',
-    'login.rememberMe': 'Remember me',
-    'login.forgotPassword': 'Forgot password?',
-    'login.noAccount': "Don't have an account?",
-    'login.register': 'Register',
-    'login.error': 'Error',
-    'login.fillAllFields': 'Please fill in all fields',
-    'login.success': 'Success',
-    'login.welcomeBack': 'Welcome back!',
-    'login.invalidCredentials': 'Invalid credentials',
-
     // Calculator Form
     'calculator.title': 'Numerology Calculator',
     'calculator.description': 'Enter a name and date of birth to calculate numerology values',
@@ -114,14 +76,13 @@ export const translationsA = {
     'calculator.success': 'Numerology calculation completed',
     'calculator.dob': 'Date of Birth',
 
-    // Results Section
+    // Results
     'results.title': 'Numerology Results',
     'results.coreNumbers': 'Core Numbers',
     'results.lifePath': 'Life Path Number',
     'results.expression': 'Expression Number',
     'results.intimate': 'Intimate Number',
     'results.realization': 'Realization Number',
-    'results.generateReport': 'Generate PDF Report',
     'results.health': 'Health Number',
     'results.sentiment': 'Sentiment Number',
     'results.cycles': 'Life Cycles',
@@ -132,8 +93,26 @@ export const translationsA = {
     'results.realizations': 'Life Realizations',
     'results.personalityTraits': 'Personality Traits',
     'results.generating': 'Generating PDF...',
+    'results.generateReport': 'Generate PDF Report',
     'results.pdfSuccess': 'PDF generated successfully',
-    'results.pdfError': 'Failed to generate PDF'
+    'results.pdfError': 'Failed to generate PDF',
+    'results.gridView': 'Grid View',
+
+    // Login
+    'login.title': 'Welcome Back',
+    'login.subtitle': 'Enter your credentials to access your account',
+    'login.email': 'Email',
+    'login.password': 'Password',
+    'login.submit': 'Sign In',
+    'login.rememberMe': 'Remember me',
+    'login.forgotPassword': 'Forgot password?',
+    'login.noAccount': "Don't have an account?",
+    'login.register': 'Register',
+    'login.error': 'Error',
+    'login.fillAllFields': 'Please fill in all fields',
+    'login.success': 'Success',
+    'login.welcomeBack': 'Welcome back!',
+    'login.invalidCredentials': 'Invalid credentials'
   },
   fr: {
     // Common
@@ -194,43 +173,6 @@ export const translationsA = {
     'numerology.lifePath.8.brief': 'Ambitieux et orienté vers le succès matériel',
     'numerology.lifePath.9.brief': 'Âme humanitaire et compatissante',
     
-    // Results
-    'results.title': 'Résultats de Numérologie',
-    'results.coreNumbers': 'Nombres Fondamentaux',
-    'results.lifePath': 'Nombre du Chemin de Vie',
-    'results.expression': "Nombre d'Expression",
-    'results.intimate': 'Nombre Intime',
-    'results.realization': 'Nombre de Réalisation',
-    'results.generateReport': 'Générer le Rapport PDF',
-    'results.health': 'Nombre de Santé',
-    'results.sentiment': 'Nombre de Sentiment',
-    'results.cycles': 'Cycles de Vie',
-    'results.challenges': 'Défis de Vie',
-    'results.firstMinor': 'Premier Défi Mineur',
-    'results.secondMinor': 'Deuxième Défi Mineur',
-    'results.major': 'Défi Majeur',
-    'results.realizations': 'Réalisations de Vie',
-    'results.personalityTraits': 'Traits de Personnalité',
-    'results.generating': 'Génération du PDF...',
-    'results.pdfSuccess': 'PDF généré avec succès',
-    'results.pdfError': 'Échec de la génération du PDF',
-    
-    // Login Page
-    'login.title': 'Bienvenue à Nouveau',
-    'login.subtitle': 'Entrez vos identifiants pour accéder à votre compte',
-    'login.email': 'Email',
-    'login.password': 'Mot de passe',
-    'login.submit': 'Se Connecter',
-    'login.rememberMe': 'Se souvenir de moi',
-    'login.forgotPassword': 'Mot de passe oublié?',
-    'login.noAccount': "Vous n'avez pas de compte?",
-    'login.register': "S'inscrire",
-    'login.error': 'Erreur',
-    'login.fillAllFields': 'Veuillez remplir tous les champs',
-    'login.success': 'Succès',
-    'login.welcomeBack': 'Bienvenue à nouveau!',
-    'login.invalidCredentials': 'Identifiants invalides',
-
     // Calculator Form
     'calculator.title': 'Calculateur de Numérologie',
     'calculator.description': 'Entrez un nom et une date de naissance pour calculer les valeurs numériques',
@@ -249,14 +191,13 @@ export const translationsA = {
     'calculator.success': 'Calcul de numérologie terminé',
     'calculator.dob': 'Date de Naissance',
 
-    // Results Section
+    // Results
     'results.title': 'Résultats de Numérologie',
     'results.coreNumbers': 'Nombres Fondamentaux',
     'results.lifePath': 'Nombre du Chemin de Vie',
     'results.expression': "Nombre d'Expression",
     'results.intimate': 'Nombre Intime',
     'results.realization': 'Nombre de Réalisation',
-    'results.generateReport': 'Générer le Rapport PDF',
     'results.health': 'Nombre de Santé',
     'results.sentiment': 'Nombre de Sentiment',
     'results.cycles': 'Cycles de Vie',
@@ -267,7 +208,25 @@ export const translationsA = {
     'results.realizations': 'Réalisations de Vie',
     'results.personalityTraits': 'Traits de Personnalité',
     'results.generating': 'Génération du PDF...',
+    'results.generateReport': 'Générer le Rapport PDF',
     'results.pdfSuccess': 'PDF généré avec succès',
-    'results.pdfError': 'Échec de la génération du PDF'
+    'results.pdfError': 'Échec de la génération du PDF',
+    'results.gridView': 'Vue en Grille',
+
+    // Login
+    'login.title': 'Bienvenue à Nouveau',
+    'login.subtitle': 'Entrez vos identifiants pour accéder à votre compte',
+    'login.email': 'Email',
+    'login.password': 'Mot de passe',
+    'login.submit': 'Se Connecter',
+    'login.rememberMe': 'Se souvenir de moi',
+    'login.forgotPassword': 'Mot de passe oublié?',
+    'login.noAccount': "Vous n'avez pas de compte?",
+    'login.register': "S'inscrire",
+    'login.error': 'Erreur',
+    'login.fillAllFields': 'Veuillez remplir tous les champs',
+    'login.success': 'Succès',
+    'login.welcomeBack': 'Bienvenue à nouveau!',
+    'login.invalidCredentials': 'Identifiants invalides'
   }
 }; 
