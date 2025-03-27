@@ -238,12 +238,12 @@ const Login = () => {
                     {t('login.rememberMe')}
                   </Label>
                 </div>
-                <Link
+                {/* <Link
                   to="/forgot-password"
                   className="text-sm text-primary hover:text-primary/80 hover:underline transition-colors"
                 >
                   {t('login.forgotPassword')}
-                </Link>
+                </Link> */}
               </motion.div>
 
               <motion.div variants={itemVariants}>
@@ -275,7 +275,7 @@ const Login = () => {
               </motion.div>
             </form>
           </CardContent>
-          <CardFooter className="flex justify-center pt-0">
+          {/* <CardFooter className="flex justify-center pt-0">
             <motion.p
               variants={itemVariants}
               className="text-sm text-muted-foreground"
@@ -285,7 +285,7 @@ const Login = () => {
                 {t('login.register')}
               </Link>
             </motion.p>
-          </CardFooter>
+          </CardFooter> */}
         </Card>
       </motion.div>
     </div>
