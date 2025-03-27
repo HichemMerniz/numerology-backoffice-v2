@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Calculator, Settings, LogOut, Menu, X } from "lucide-react";
+import { Home, Calculator, Settings, LogOut, Menu, X, History } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -14,7 +14,7 @@ export function Sidebar() {
 
   const navigation = [
     { name: t('nav.home'), href: "/", icon: Home },
-    // { name: t('nav.calculator'), href: "/calculator", icon: Calculator },
+    { name: t('nav.history'), href: "/history", icon: History },
     { name: t('nav.settings'), href: "/settings", icon: Settings },
   ];
 

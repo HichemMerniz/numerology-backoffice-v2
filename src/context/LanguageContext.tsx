@@ -1,18 +1,14 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode } from 'react';
 import { translationsA } from '../translations';
-
-type Language = 'en' | 'fr';
 
 type TranslationParams = {
   fallback?: string;
   [key: string]: string | number | undefined;
 };
 
-type TranslationKey = keyof typeof translationsA.en;
+type TranslationKey = keyof typeof translationsA.fr;
 
 interface LanguageContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
   t: (key: TranslationKey, params?: TranslationParams) => string;
 }
 
@@ -23,10 +19,8 @@ interface LanguageProviderProps {
 }
 
 export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [language, setLanguage] = useState<Language>('en');
-
   const t = (key: TranslationKey, params?: TranslationParams): string => {
-    const translation = translationsA[language][key] || translationsA['en'][key] || params?.fallback || key;
+    const translation = translationsA.fr[key] || params?.fallback || key;
     
     if (params) {
       return Object.entries(params).reduce(
@@ -39,7 +33,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ t }}>
       {children}
     </LanguageContext.Provider>
   );

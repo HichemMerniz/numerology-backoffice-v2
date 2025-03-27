@@ -12,15 +12,15 @@ import { Button } from "@/components/ui/button";
 import { AuthContext } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { getNumerologyData, generateNumerologyPDF } from "../services/api";
-import { Download, Loader2, Plus, Trash2, CheckCircle2, AlertCircle } from "lucide-react";
-import { API_BASE_URL } from "@/config/api";
+import { Loader2, Plus, Trash2, CheckCircle2, AlertCircle, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { NumerologyGrid } from "@/components/numerology/NumerologyGrid";
-import { DatePicker } from "@/components/ui/date-picker";
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
+import { HistoryDetailsModal } from "@/components/history/HistoryDetailsModal";
+import { API_BASE_URL } from "@/config/api";
 
 export default function Dashboard() {
   const [formData, setFormData] = useState({
@@ -37,11 +37,12 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useContext(AuthContext);
   const { t } = useLanguage();
+  const [selectedHistoryItem, setSelectedHistoryItem] = useState<any>(null);
 
   const formatDateInput = (value: string): string => {
     // Remove any non-digit characters
     const digits = value.replace(/\D/g, '');
-    
+
     // Format as DD/MM/YYYY
     if (digits.length <= 2) return digits;
     if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
@@ -50,19 +51,19 @@ export default function Dashboard() {
 
   const validateDate = (dateStr: string): boolean => {
     const [day, month, year] = dateStr.split('/').map(Number);
-    
+
     // Check if all parts are numbers
     if (isNaN(day) || isNaN(month) || isNaN(year)) return false;
-    
+
     // Check ranges
     if (month < 1 || month > 12) return false;
     if (day < 1 || day > 31) return false;
     if (year < 1900 || year > new Date().getFullYear()) return false;
-    
+
     // Check days in month
     const daysInMonth = new Date(year, month, 0).getDate();
     if (day > daysInMonth) return false;
-    
+
     return true;
   };
 
@@ -137,11 +138,35 @@ export default function Dashboard() {
     }
   };
 
-  const generatePDF = async (pdfUrl: string) => {
+  const generatePDF = async (resultId: string) => {
     if (!auth?.token) return;
     try {
       setIsGenerating(true);
-      window.open(API_BASE_URL + "/api/pdf/download" + pdfUrl + ".pdf", '_blank');
+      const link = document.createElement('a');
+      link.href = `${API_BASE_URL}/api/calculations/result/${resultId}/pdf`;
+      link.setAttribute('download', `numerology-report-${resultId}.pdf`);
+      
+      const headers = new Headers();
+      headers.append('Authorization', `Bearer ${auth.token}`);
+      
+      const response = await fetch(link.href, {
+        headers: headers
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to download PDF');
+      }
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
       toast({
         title: "Success",
         description: "PDF generated successfully",
@@ -258,20 +283,56 @@ export default function Dashboard() {
 
                   {/* Birth Date Section */}
                   <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 space-y-4">
-                    <h3 className="text-xl font-semibold text-primary/80">Birth Information</h3>
-                    <div className="space-y-3">
-                      <Label htmlFor="birthDate" className="text-base font-medium inline-flex items-center gap-2">
-                        {t("calculator.dob")}
-                        <span className="text-primary">*</span>
-                      </Label>
-                      <DatePicker
-                        date={formData.birthDate ? parse(formData.birthDate, "dd/MM/yyyy", new Date()) : undefined}
-                        onSelect={(date) => handleInputChange("birthDate", date as Date)}
-                        placeholder="DD/MM/YYYY"
-                      />
-                      <p className="text-sm text-muted-foreground">
-                        Format: DD/MM/YYYY
-                      </p>
+                    <div className="space-y-2">
+                      <Label htmlFor="dob">{t('calculator.dob')}</Label>
+                      <div className="relative">
+                        <Input
+                          id="dob"
+                          type="text"
+                          placeholder="JJ/MM/AAAA"
+                          value={formData.birthDate}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            // Remove any non-digit characters
+                            const digits = value.replace(/\D/g, '');
+
+                            // Format as DD/MM/YYYY
+                            let formattedDate = '';
+                            if (digits.length <= 2) formattedDate = digits;
+                            else if (digits.length <= 4) formattedDate = `${digits.slice(0, 2)}/${digits.slice(2)}`;
+                            else formattedDate = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
+
+                            setFormData(prev => ({ ...prev, birthDate: formattedDate }));
+                          }}
+                          maxLength={10}
+                          required
+                          className="pr-8"
+                        />
+                        {formData.birthDate && validateDate(formData.birthDate) && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500"
+                          >
+                            <CheckCircle2 className="h-5 w-5" />
+                          </motion.div>
+                        )}
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <p className="text-muted-foreground">
+                          Format: JJ/MM/AAAA
+                        </p>
+                        {formData.birthDate && !validateDate(formData.birthDate) && (
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-red-500 flex items-center gap-1"
+                          >
+                            <AlertCircle className="h-4 w-4" />
+                            Date invalide
+                          </motion.p>
+                        )}
+                      </div>
                     </div>
                   </div>
 
@@ -407,7 +468,7 @@ export default function Dashboard() {
                     <div className="space-y-4">
                       <h3 className="text-2xl font-semibold text-primary/80">{t("results.cycles")}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {Object.entries(result.cycles).map(([cycle, data], index) => {
+                        {result.cycles && Object.entries(result.cycles).map(([cycle, data], index) => {
                           const cycleData = data as { number: number; years: string };
                           return (
                             <motion.div
@@ -451,7 +512,7 @@ export default function Dashboard() {
                               {item.label}
                             </h4>
                             <p className="text-3xl font-bold text-primary">
-                              {result.challenges[item.key]}
+                              {result.challenges?.[item.key]}
                             </p>
                           </motion.div>
                         ))}
@@ -462,7 +523,7 @@ export default function Dashboard() {
                     <div className="space-y-4">
                       <h3 className="text-2xl font-semibold text-primary/80">{t("results.realizations")}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                        {Object.entries(result.realizations).map(([period, age], index) => (
+                        {result.realizations && Object.entries(result.realizations).map(([period, age], index) => (
                           <motion.div
                             key={period}
                             initial={{ opacity: 0, y: 20 }}
@@ -486,7 +547,7 @@ export default function Dashboard() {
                     <div className="space-y-4">
                       <h3 className="text-2xl font-semibold text-primary/80">{t("results.personalityTraits")}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {Object.entries(result.personalityTraits).map(([trait, value], index) => (
+                        {result.personalityTraits && Object.entries(result.personalityTraits).map(([trait, value], index) => (
                           <motion.div
                             key={trait}
                             initial={{ opacity: 0, y: 20 }}
@@ -512,24 +573,24 @@ export default function Dashboard() {
                       <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 shadow-sm">
                         <NumerologyGrid
                           lifePath={{
-                            value: result.lifePath,
-                            pillar: result.lifePath,
-                            inclusion: result.lifePath
+                            value: result.lifePath || 0,
+                            pillar: result.lifePath || 0,
+                            inclusion: result.lifePath || 0
                           }}
                           expression={{
-                            value: result.expression.toString(),
-                            pillar: result.expression.toString(),
-                            inclusion: result.expression
+                            value: (result.expression || 0).toString(),
+                            pillar: (result.expression || 0).toString(),
+                            inclusion: result.expression || 0
                           }}
                           intimate={{
-                            value: result.intimate,
-                            pillar: result.intimate,
-                            inclusion: result.intimate
+                            value: result.intimate || 0,
+                            pillar: result.intimate || 0,
+                            inclusion: result.intimate || 0
                           }}
                           realization={{
-                            value: result.realization.toString(),
-                            pillar: result.realization,
-                            inclusion: result.realization
+                            value: (result.realization || 0).toString(),
+                            pillar: result.realization || 0,
+                            inclusion: result.realization || 0
                           }}
                         />
                       </div>
@@ -538,10 +599,10 @@ export default function Dashboard() {
                     {/* PDF Generation Button */}
                     <div className="flex justify-end">
                       <Button
-                        onClick={() => generatePDF(result?.pdfUrl)}
+                        onClick={() => generatePDF(result.resultId)}
                         variant="outline"
                         className="flex items-center gap-2 h-12 text-lg font-semibold hover:bg-primary/5 transition-all duration-300"
-                        disabled={true}
+                        disabled={isGenerating}
                       >
                         {isGenerating ? (
                           <>
@@ -562,6 +623,14 @@ export default function Dashboard() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <HistoryDetailsModal
+          isOpen={!!selectedHistoryItem}
+          onClose={() => setSelectedHistoryItem(null)}
+          data={selectedHistoryItem}
+          onGeneratePDF={generatePDF}
+          isGenerating={isGenerating}
+        />
       </div>
     </DashboardLayout>
   );

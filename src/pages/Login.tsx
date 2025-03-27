@@ -7,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -73,19 +72,19 @@ const Login = () => {
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         staggerChildren: 0.08,
         delayChildren: 0.1
-      } 
+      }
     }
   };
-  
+
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
       transition: { type: "spring", stiffness: 300, damping: 24 }
     }
@@ -93,7 +92,7 @@ const Login = () => {
 
   const backgroundVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
       transition: { duration: 0.8 }
     }
@@ -102,7 +101,7 @@ const Login = () => {
   return (
     <div className="min-h-screen w-full py-8 md:py-16 px-4 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-background">
       {/* Animated background elements */}
-      <motion.div 
+      <motion.div
         initial="hidden"
         animate="visible"
         variants={backgroundVariants}
@@ -148,9 +147,7 @@ const Login = () => {
         />
       </motion.div>
 
-      <div className="absolute top-4 right-4 z-10">
-        <LanguageToggle />
-      </div>
+
 
       <motion.div
         initial="hidden"
@@ -189,7 +186,7 @@ const Login = () => {
                   />
                 </div>
               </motion.div>
-              
+
               <motion.div variants={itemVariants} className="space-y-2">
                 <Label className="text-sm font-medium" htmlFor="password">
                   {t('login.password')}
@@ -229,42 +226,41 @@ const Login = () => {
                   </Button>
                 </div>
               </motion.div>
-              
+
               <motion.div variants={itemVariants} className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="rememberMe" 
-                    checked={rememberMe} 
+                  <Checkbox
+                    id="rememberMe"
+                    checked={rememberMe}
                     onCheckedChange={(checked: boolean) => setRememberMe(checked)}
                   />
                   <Label htmlFor="rememberMe" className="text-sm cursor-pointer">
                     {t('login.rememberMe')}
                   </Label>
                 </div>
-                <Link 
-                  to="/forgot-password" 
+                <Link
+                  to="/forgot-password"
                   className="text-sm text-primary hover:text-primary/80 hover:underline transition-colors"
                 >
                   {t('login.forgotPassword')}
                 </Link>
               </motion.div>
-              
+
               <motion.div variants={itemVariants}>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full h-10 sm:h-12 text-base group overflow-hidden relative"
                   disabled={isLoading}
                 >
-                  <span 
-                    className={`flex items-center justify-center transition-all duration-300 transform ${
-                      isLoading ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-                    }`}
+                  <span
+                    className={`flex items-center justify-center transition-all duration-300 transform ${isLoading ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+                      }`}
                   >
                     {t('login.submit')}
                   </span>
                   <AnimatePresence>
                     {isLoading && (
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
@@ -280,11 +276,11 @@ const Login = () => {
             </form>
           </CardContent>
           <CardFooter className="flex justify-center pt-0">
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-sm text-muted-foreground"
             >
-              {t('login.noAccount')} 
+              {t('login.noAccount')}
               <Link to="/register" className="text-primary font-medium ml-1 hover:underline transition-colors">
                 {t('login.register')}
               </Link>

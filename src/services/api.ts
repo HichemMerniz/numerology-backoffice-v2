@@ -47,7 +47,7 @@ export const getNumerologyData = async (
     carriedNameFor25Years?: boolean;
   }
 ) => {
-  const response = await fetch(`${API_BASE_URL}/api/calculate`, {
+  const response = await fetch(`${API_BASE_URL}/api/calculations/calculate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

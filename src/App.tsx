@@ -5,6 +5,7 @@ import { LanguageProvider } from "./context/LanguageContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import HistoryPage from "./pages/History";
 import { PrivateRoute } from "./components/auth/PrivateRoute";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -40,6 +41,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Dashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/history"
+                element={
+                  <PrivateRoute>
+                    <HistoryPage />
                   </PrivateRoute>
                 }
               />

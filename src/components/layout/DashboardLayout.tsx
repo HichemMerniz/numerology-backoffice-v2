@@ -2,7 +2,6 @@ import { ReactNode, useState, useEffect } from "react";
 import { Sidebar } from "./Sidebar";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
-import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { Loader2 } from "lucide-react";
 
 interface DashboardLayoutProps {
@@ -143,9 +142,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6"
             >
               <div className="flex justify-end gap-3 mb-6">
-                <motion.div variants={itemVariants}>
-                  <LanguageToggle />
-                </motion.div>
+                
                 <motion.div variants={itemVariants}>
                   <ThemeToggle />
                 </motion.div>

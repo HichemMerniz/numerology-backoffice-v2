@@ -1,119 +1,4 @@
 export const translationsA = {
-  en: {
-    // Common
-    'app.title': 'Numerology Dashboard',
-    'app.logout': 'Logout',
-    
-    // Navigation
-    'nav.home': 'Home',
-    'nav.settings': 'Settings',
-    'nav.logout': 'Logout',
-    
-    // Theme
-    'theme.switchToDark': 'Switch to dark mode',
-    'theme.switchToLight': 'Switch to light mode',
-    
-    // History
-    'history.title': 'Numerology History',
-    'history.description': 'View your past numerology readings',
-    'history.totalReadings': 'Total Readings: {{count}}',
-    'history.refresh': 'Refresh',
-    'history.error.title': 'Error Loading History',
-    'history.error.description': 'Failed to load your numerology history. Please try again.',
-    'history.empty.title': 'No Readings Yet',
-    'history.empty.description': 'Your numerology readings will appear here once you generate them.',
-    'history.table.name': 'Name',
-    'history.table.dob': 'Date of Birth',
-    'history.table.lifePath': 'Life Path',
-    'history.table.expression': 'Expression',
-    'history.table.soulUrge': 'Soul Urge',
-    'history.table.createdAt': 'Created At',
-    'history.table.actions': 'Actions',
-    'history.pagination.previous': 'Previous',
-    'history.pagination.next': 'Next',
-    'history.deleteDialog.title': 'Delete Reading',
-    'history.deleteDialog.description': 'Are you sure you want to delete this reading? This action cannot be undone.',
-    'history.deleteDialog.cancel': 'Cancel',
-    'history.deleteDialog.confirm': 'Delete',
-    'history.deleteDialog.deleting': 'Deleting...',
-    'history.deleteSuccess.title': 'Success',
-    'history.deleteSuccess.description': 'Reading deleted successfully',
-    'history.deleteError.title': 'Error',
-    'history.deleteError.description': 'Failed to delete reading. Please try again.',
-    'history.pdfSuccess.title': 'Success',
-    'history.pdfSuccess.description': 'PDF generated successfully',
-    'history.pdfError.title': 'Error',
-    'history.pdfError.description': 'Failed to generate PDF. Please try again.',
-    'history.calculatedOn': 'Calculated on',
-    'history.downloadPdf': 'Download PDF',
-    
-    // Numerology
-    'numerology.lifePath.1.brief': 'Natural born leader with strong individuality',
-    'numerology.lifePath.2.brief': 'Diplomatic and cooperative nature',
-    'numerology.lifePath.3.brief': 'Creative and expressive personality',
-    'numerology.lifePath.4.brief': 'Practical and methodical approach to life',
-    'numerology.lifePath.5.brief': 'Freedom-loving and adventurous spirit',
-    'numerology.lifePath.6.brief': 'Nurturing and responsible character',
-    'numerology.lifePath.7.brief': 'Analytical and spiritual thinker',
-    'numerology.lifePath.8.brief': 'Ambitious and material success-oriented',
-    'numerology.lifePath.9.brief': 'Humanitarian and compassionate soul',
-    
-    // Calculator Form
-    'calculator.title': 'Numerology Calculator',
-    'calculator.description': 'Enter a name and date of birth to calculate numerology values',
-    'calculator.firstName': 'First Name',
-    'calculator.lastName': 'Last Name',
-    'calculator.middleNames': 'Middle Names',
-    'calculator.addMiddleName': 'Add Middle Name',
-    'calculator.maritalName': 'Marital Name',
-    'calculator.usedFirstName': 'Used First Name',
-    'calculator.carriedNameFor25Years': 'Carried this name for 25 years or more',
-    'calculator.calculating': 'Calculating...',
-    'calculator.button': 'Calculate Numerology',
-    'calculator.error.requiredFields': 'Please fill in all required fields',
-    'calculator.error.invalidDate': 'Please enter a valid date in DD/MM/YYYY format',
-    'calculator.error.calculationFailed': 'Failed to calculate numerology',
-    'calculator.success': 'Numerology calculation completed',
-    'calculator.dob': 'Date of Birth',
-
-    // Results
-    'results.title': 'Numerology Results',
-    'results.coreNumbers': 'Core Numbers',
-    'results.lifePath': 'Life Path Number',
-    'results.expression': 'Expression Number',
-    'results.intimate': 'Intimate Number',
-    'results.realization': 'Realization Number',
-    'results.health': 'Health Number',
-    'results.sentiment': 'Sentiment Number',
-    'results.cycles': 'Life Cycles',
-    'results.challenges': 'Life Challenges',
-    'results.firstMinor': 'First Minor Challenge',
-    'results.secondMinor': 'Second Minor Challenge',
-    'results.major': 'Major Challenge',
-    'results.realizations': 'Life Realizations',
-    'results.personalityTraits': 'Personality Traits',
-    'results.generating': 'Generating PDF...',
-    'results.generateReport': 'Generate PDF Report',
-    'results.pdfSuccess': 'PDF generated successfully',
-    'results.pdfError': 'Failed to generate PDF',
-    'results.gridView': 'Grid View',
-
-    // Login
-    'login.title': 'Welcome Back',
-    'login.subtitle': 'Enter your credentials to access your account',
-    'login.email': 'Email',
-    'login.password': 'Password',
-    'login.submit': 'Sign In',
-    'login.rememberMe': 'Remember me',
-    'login.forgotPassword': 'Forgot password?',
-    'login.noAccount': "Don't have an account?",
-    'login.register': 'Register',
-    'login.error': 'Error',
-    'login.fillAllFields': 'Please fill in all fields',
-    'login.success': 'Success',
-    'login.welcomeBack': 'Welcome back!',
-    'login.invalidCredentials': 'Invalid credentials'
-  },
   fr: {
     // Common
     'app.title': 'Tableau de Bord de Numérologie',
@@ -121,6 +6,7 @@ export const translationsA = {
     
     // Navigation
     'nav.home': 'Accueil',
+    'nav.history': 'Historique',
     'nav.settings': 'Paramètres',
     'nav.logout': 'Déconnexion',
     
@@ -129,9 +15,9 @@ export const translationsA = {
     'theme.switchToLight': 'Passer au mode clair',
     
     // History
-    'history.title': 'Historique de Numérologie',
-    'history.description': 'Consultez vos lectures de numérologie passées',
-    'history.totalReadings': 'Total des Lectures: {{count}}',
+    'history.title': 'Historique des Calculs',
+    'history.description': 'Voir tous vos calculs précédents',
+    'history.totalReadings': 'Total des lectures',
     'history.refresh': 'Actualiser',
     'history.error.title': 'Erreur de Chargement',
     'history.error.description': 'Échec du chargement de votre historique. Veuillez réessayer.',
@@ -146,6 +32,8 @@ export const translationsA = {
     'history.table.actions': 'Actions',
     'history.pagination.previous': 'Précédent',
     'history.pagination.next': 'Suivant',
+    'history.pagination.page': 'Page',
+    'history.pagination.of': 'sur',
     'history.deleteDialog.title': 'Supprimer la Lecture',
     'history.deleteDialog.description': 'Êtes-vous sûr de vouloir supprimer cette lecture ? Cette action ne peut pas être annulée.',
     'history.deleteDialog.cancel': 'Annuler',
@@ -160,7 +48,9 @@ export const translationsA = {
     'history.pdfError.title': 'Erreur',
     'history.pdfError.description': 'Échec de la génération du PDF. Veuillez réessayer.',
     'history.calculatedOn': 'Calculé le',
-    'history.downloadPdf': 'Télécharger le PDF',
+    'history.downloadPdf': 'Télécharger PDF',
+    'history.viewDetails': 'Voir détails',
+    'history.noCalculations': 'Aucun calcul trouvé',
     
     // Numerology
     'numerology.lifePath.1.brief': 'Leader naturel avec une forte individualité',
@@ -209,9 +99,6 @@ export const translationsA = {
     'results.personalityTraits': 'Traits de Personnalité',
     'results.generating': 'Génération du PDF...',
     'results.generateReport': 'Générer le Rapport PDF',
-    'results.pdfSuccess': 'PDF généré avec succès',
-    'results.pdfError': 'Échec de la génération du PDF',
-    'results.gridView': 'Vue en Grille',
 
     // Login
     'login.title': 'Bienvenue à Nouveau',
