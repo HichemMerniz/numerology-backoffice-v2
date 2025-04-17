@@ -207,9 +207,9 @@ export default function Dashboard() {
                 <div className="grid gap-6">
                   {/* Name Fields Section */}
                   <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 space-y-6">
-                    <h3 className="text-xl font-semibold text-primary/80">Personal Information</h3>
+                    <h3 className="text-xl font-semibold text-primary/80">Informations Personnelles</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
+                        <div className="space-y-2">
                         <Label htmlFor="firstName" className="text-base font-medium inline-flex items-center gap-2">
                           {t("calculator.firstName")}
                           <span className="text-primary">*</span>
@@ -219,10 +219,10 @@ export default function Dashboard() {
                           type="text"
                           placeholder="Enter first name"
                           value={formData.firstName}
-                          onChange={(e) => handleInputChange("firstName", e.target.value)}
+                          onChange={(e) => handleInputChange("firstName", e.target.value.toUpperCase())}
                           className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
                         />
-                      </div>
+                        </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName" className="text-base font-medium inline-flex items-center gap-2">
                           {t("calculator.lastName")}
@@ -233,7 +233,7 @@ export default function Dashboard() {
                           type="text"
                           placeholder="Enter last name"
                           value={formData.lastName}
-                          onChange={(e) => handleInputChange("lastName", e.target.value)}
+                          onChange={(e) => handleInputChange("lastName",  e.target.value.toUpperCase())}
                           className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
                         />
                       </div>
@@ -252,7 +252,7 @@ export default function Dashboard() {
                           >
                             <Input
                               value={name}
-                              onChange={(e) => handleMiddleNameChange(index, e.target.value)}
+                              onChange={(e) => handleMiddleNameChange(index,  e.target.value.toUpperCase())}
                               placeholder={`Middle name ${index + 1}`}
                               className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
                             />
@@ -349,7 +349,7 @@ export default function Dashboard() {
                           type="text"
                           placeholder="Enter marital name (optional)"
                           value={formData.maritalName}
-                          onChange={(e) => handleInputChange("maritalName", e.target.value)}
+                          onChange={(e) => handleInputChange("maritalName",  e.target.value.toUpperCase())}
                           className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
                         />
                       </div>
@@ -362,7 +362,7 @@ export default function Dashboard() {
                           type="text"
                           placeholder="Enter used first name (optional)"
                           value={formData.usedFirstName}
-                          onChange={(e) => handleInputChange("usedFirstName", e.target.value)}
+                          onChange={(e) => handleInputChange("usedFirstName",  e.target.value.toUpperCase())}
                           className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
                         />
                       </div>
@@ -499,8 +499,8 @@ export default function Dashboard() {
                       <h3 className="text-2xl font-semibold text-primary/80">{t("results.challenges")}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {[
-                          { key: "firstMinor", label: t("results.firstMinor") },
-                          { key: "secondMinor", label: t("results.secondMinor") },
+                          { key: "premierMinor", label: t("results.firstMinor") },
+                          { key: "deuxièmeMinor", label: t("results.secondMinor") },
                           { key: "major", label: t("results.major") },
                         ].map((item) => (
                           <motion.div
