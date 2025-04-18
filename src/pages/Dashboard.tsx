@@ -101,8 +101,8 @@ export default function Dashboard() {
     if (!auth?.token) return;
     if (!formData.firstName || !formData.lastName || !formData.birthDate) {
       toast({
-        title: "Error",
-        description: "Please fill in all required fields",
+        title: "Erreur",
+        description: "Veuillez remplir tous les champs obligatoires",
         variant: "destructive",
       });
       return;
@@ -111,8 +111,8 @@ export default function Dashboard() {
     // Validate date format and validity
     if (!validateDate(formData.birthDate)) {
       toast({
-        title: "Error",
-        description: "Please enter a valid date in DD/MM/YYYY format",
+        title: "Erreur",
+        description: "Veuillez entrer une date valide au format JJ/MM/AAAA",
         variant: "destructive",
       });
       return;
@@ -123,14 +123,14 @@ export default function Dashboard() {
       const data = await getNumerologyData(auth.token, formData);
       setResult(data);
       toast({
-        title: "Success",
-        description: "Numerology calculation completed",
+        title: "Succès",
+        description: "Calcul de numérologie terminé",
       });
     } catch (error) {
       console.error("Error fetching numerology data:", error);
       toast({
-        title: "Error",
-        description: "Failed to calculate numerology",
+        title: "Erreur",
+        description: "Échec du calcul de la numérologie",
         variant: "destructive",
       });
     } finally {
@@ -168,14 +168,14 @@ export default function Dashboard() {
       window.URL.revokeObjectURL(url);
       
       toast({
-        title: "Success",
-        description: "PDF generated successfully",
+        title: "Succès",
+        description: "PDF généré avec succès",
       });
     } catch (error) {
       console.error("Error generating PDF:", error);
       toast({
-        title: "Error",
-        description: "Failed to generate PDF",
+        title: "Erreur",
+        description: "Échec de la génération du PDF",
         variant: "destructive",
       });
     } finally {
@@ -217,7 +217,7 @@ export default function Dashboard() {
                         <Input
                           id="firstName"
                           type="text"
-                          placeholder="Enter first name"
+                          placeholder="Entrez le prénom"
                           value={formData.firstName}
                           onChange={(e) => handleInputChange("firstName", e.target.value.toUpperCase())}
                           className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
@@ -231,7 +231,7 @@ export default function Dashboard() {
                         <Input
                           id="lastName"
                           type="text"
-                          placeholder="Enter last name"
+                          placeholder="Entrez le nom de famille"
                           value={formData.lastName}
                           onChange={(e) => handleInputChange("lastName",  e.target.value.toUpperCase())}
                           className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
@@ -253,7 +253,7 @@ export default function Dashboard() {
                             <Input
                               value={name}
                               onChange={(e) => handleMiddleNameChange(index,  e.target.value.toUpperCase())}
-                              placeholder={`Middle name ${index + 1}`}
+                              placeholder={`Deuxième prénom ${index + 1}`}
                               className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
                             />
                             {formData.middleNames.length > 1 && (
@@ -320,7 +320,7 @@ export default function Dashboard() {
                       </div>
                       <div className="flex justify-between items-center text-sm">
                         <p className="text-muted-foreground">
-                          Format: JJ/MM/AAAA
+                          Format : JJ/MM/AAAA
                         </p>
                         {formData.birthDate && !validateDate(formData.birthDate) && (
                           <motion.p
@@ -338,7 +338,7 @@ export default function Dashboard() {
 
                   {/* Additional Information Section */}
                   <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 space-y-6">
-                    <h3 className="text-xl font-semibold text-primary/80">Additional Information</h3>
+                    <h3 className="text-xl font-semibold text-primary/80">Informations Supplémentaires</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="maritalName" className="text-base font-medium">
@@ -347,7 +347,7 @@ export default function Dashboard() {
                         <Input
                           id="maritalName"
                           type="text"
-                          placeholder="Enter marital name (optional)"
+                          placeholder="Entrez le nom marital (facultatif)"
                           value={formData.maritalName}
                           onChange={(e) => handleInputChange("maritalName",  e.target.value.toUpperCase())}
                           className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
@@ -360,7 +360,7 @@ export default function Dashboard() {
                         <Input
                           id="usedFirstName"
                           type="text"
-                          placeholder="Enter used first name (optional)"
+                          placeholder="Entrez le prénom utilisé (facultatif)"
                           value={formData.usedFirstName}
                           onChange={(e) => handleInputChange("usedFirstName",  e.target.value.toUpperCase())}
                           className="h-12 bg-background/50 border-primary/20 focus:border-primary/40 text-base transition-colors"
