@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, ReactNode, useContext } from "react";
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
+import { useNavigate } from "react-router-dom"; // Add this import
 
 interface AuthContextType {
   token: string | null;
@@ -12,6 +13,25 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
+  const navigate = useNavigate(); // Add this line
+
+  // Check token expiration
+  useEffect(() => {
+    if (token) {
+      try {
+        const decoded: any = jwtDecode(token);
+        if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+          setToken(null);
+          localStorage.removeItem("token");
+          navigate("/login");
+        }
+      } catch (e) {
+        setToken(null);
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    }
+  }, [token, navigate]);
 
   useEffect(() => {
     if (token) localStorage.setItem("token", token);
@@ -24,6 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setToken(null);
+    navigate("/login"); // Redirect on logout
   };
 
   return (
