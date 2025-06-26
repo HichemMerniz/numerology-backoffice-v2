@@ -2,7 +2,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { NumerologyGrid } from "@/components/numerology/NumerologyGrid";
 import { motion } from "framer-motion";
 
 interface HistoryDetailsModalProps {
@@ -182,7 +181,7 @@ export function HistoryDetailsModal({
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-primary/80">{t("results.coreNumbers")}</h3>
             <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 shadow-sm">
-              <NumerologyGrid
+              {/* <NumerologyGrid
                 lifePath={{
                   value: data.lifePath || 0,
                   pillar: data.lifePath || 0,
@@ -203,7 +202,19 @@ export function HistoryDetailsModal({
                   pillar: data.realization || 0,
                   inclusion: data.realization || 0
                 }}
-              />
+                heredityNumber={{
+                  value: data.heredityNumber || 0,
+                  pillar: data.heredityNumber || 0,
+                  inclusion: data.heredityNumber || 0
+                }}
+                inclusionGrid={{
+                  values: data.inclusionGrid?.values || [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                  total: data.inclusionGrid?.total || 0
+                }}
+                letterAnalysis={{
+                  values: data.letterAnalysis?.values || []
+                }}
+              /> */}
             </div>
           </div>
 

@@ -15,10 +15,21 @@ type CalculatorFormData = {
   dob: string;
 };
 
+type NameAnalysis = {
+  letters: string[];
+  values: number[];
+  consonants: number[];
+  vowels: number[];
+  total: number;
+  consonantSum: number;
+  vowelSum: number;
+};
+
 type CalculatorResults = {
   name: string;
   dob: string;
   readings: {
+    resultId: string;
     lifePath: { 
       name: string; 
       value: number;
@@ -27,7 +38,7 @@ type CalculatorResults = {
     };
     expression: { 
       name: string; 
-      value: string;
+      value: number;
       pillar: string;
       inclusion: number;
     };
@@ -39,10 +50,82 @@ type CalculatorResults = {
     };
     realization: { 
       name: string; 
-      value: string;
+      value: number;
       pillar: number;
       inclusion: number;
     };
+    health: number;
+    sentiment: number;
+    heredityNumber: {
+      value: number;
+      description: string;
+      pillar: number;
+      inclusion: number;
+    };
+    karmicDebts: number[];
+    inclusionGrid: {
+      grid: {
+        [key: string]: number;
+      };
+      pillars: {
+        physical: number[];
+        emotional: number[];
+        mental: number[];
+        intuitive: number[];
+      };
+      legend: string[];
+      total: number;
+    };
+    letterAnalysis: {
+      vowels: Array<{
+        letter: string;
+        value: number;
+        count: number;
+      }>;
+      consonants: Array<{
+        letter: string;
+        value: number;
+        count: number;
+      }>;
+      totalVowels: number;
+      totalConsonants: number;
+      interpretation: string;
+    };
+    cycles: {
+      formatif: {
+        number: number;
+        years: string;
+      };
+      productif: {
+        number: number;
+        years: string;
+      };
+      moisson: {
+        number: number;
+        years: string;
+      };
+    };
+    realizations: {
+      premier: number;
+      deuxième: number;
+      troisième: number;
+      quatrième: number;
+    };
+    challenges: {
+      premierMinor: number;
+      deuxièmeMinor: number;
+      major: number;
+    };
+    personalityTraits: {
+      intimate: string;
+      social: string;
+    };
+    nameAnalysis: {
+      lastName: NameAnalysis;
+      firstName: NameAnalysis;
+      middleNames: NameAnalysis[];
+    };
+    vibration: number[];
   };
 };
 
@@ -93,16 +176,17 @@ export function Calculator() {
         name: `${formData.firstName} ${formData.lastName}`,
         dob: format(new Date(formData.dob.split('/').reverse().join('-')), "PPP"),
         readings: {
+          resultId: "1750930596234",
           lifePath: {
             name: "Life Path",
-            value: 5,
+            value: 6,
             pillar: 4,
             inclusion: 0,
           },
           expression: {
             name: "Expression",
-            value: "####",
-            pillar: "#N/A",
+            value: 5,
+            pillar: "N/A",
             inclusion: 0,
           },
           intimate: {
@@ -113,10 +197,112 @@ export function Calculator() {
           },
           realization: {
             name: "Realization",
-            value: "2/11",
+            value: 13,
             pillar: 1,
             inclusion: 1,
           },
+          health: 1,
+          sentiment: 0,
+          heredityNumber: {
+            value: 4,
+            description: "Héritage de stabilité et de tradition",
+            pillar: 2,
+            inclusion: 1,
+          },
+          karmicDebts: [],
+          inclusionGrid: {
+            grid: {
+              "1": 0,
+              "2": 0,
+              "3": 1,
+              "4": 2,
+              "5": 3,
+              "6": 0,
+              "7": 0,
+              "8": 3,
+              "9": 3
+            },
+            pillars: {
+              physical: [4, 5, 6],
+              emotional: [2, 3, 6],
+              mental: [1, 7, 8],
+              intuitive: [3, 7, 9]
+            },
+            legend: [
+              "Physical: Fort",
+              "Emotional: Faible",
+              "Mental: Modéré",
+              "Intuitive: Modéré"
+            ],
+            total: 12
+          },
+          letterAnalysis: {
+            vowels: [
+              { letter: "E", value: 5, count: 2 },
+              { letter: "I", value: 9, count: 2 }
+            ],
+            consonants: [
+              { letter: "M", value: 4, count: 2 },
+              { letter: "R", value: 9, count: 1 },
+              { letter: "N", value: 5, count: 1 },
+              { letter: "Z", value: 8, count: 1 },
+              { letter: "H", value: 8, count: 2 },
+              { letter: "C", value: 3, count: 1 }
+            ],
+            totalVowels: 4,
+            totalConsonants: 8,
+            interpretation: "Équilibre entre émotion et raison"
+          },
+          cycles: {
+            formatif: { number: 5, years: "0-31" },
+            productif: { number: 1, years: "32-58" },
+            moisson: { number: 9, years: "59+" }
+          },
+          realizations: {
+            premier: 3,
+            deuxième: 3,
+            troisième: 3,
+            quatrième: 3
+          },
+          challenges: {
+            premierMinor: 4,
+            deuxièmeMinor: 8,
+            major: 4
+          },
+          personalityTraits: {
+            intimate: "H",
+            social: "M"
+          },
+          nameAnalysis: {
+            lastName: {
+              letters: ["M", "E", "R", "N", "I", "Z"],
+              values: [4, 5, 9, 5, 9, 8],
+              consonants: [4, 0, 9, 5, 0, 8],
+              vowels: [0, 5, 0, 0, 9, 0],
+              total: 4,
+              consonantSum: 8,
+              vowelSum: 5
+            },
+            firstName: {
+              letters: ["H", "I", "C", "H", "E", "M"],
+              values: [8, 9, 3, 8, 5, 4],
+              consonants: [8, 0, 3, 8, 0, 4],
+              vowels: [0, 9, 0, 0, 5, 0],
+              total: 1,
+              consonantSum: 5,
+              vowelSum: 5
+            },
+            middleNames: [{
+              letters: [],
+              values: [],
+              consonants: [],
+              vowels: [],
+              total: 0,
+              consonantSum: 0,
+              vowelSum: 0
+            }]
+          },
+          vibration: [1, 2, 11, 20, 3, 4, 13, 22, 5, 6, 33, 7, 8, 9]
         },
       });
     } catch (error) {

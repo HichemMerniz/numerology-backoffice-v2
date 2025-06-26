@@ -58,6 +58,24 @@ type HistoryEntry = {
       pillar: number;
       inclusion: number;
     };
+    heredityNumber: {
+      name: string;
+      value: number;
+      pillar: number;
+      inclusion: number;
+    };
+    inclusionGrid: {
+      name: string;
+      values: number[];
+      total: number;
+    };
+    letterAnalysis: {
+      name: string;
+      values: {
+        letter: string;
+        value: number;
+      }[];
+    };
   };
 };
 
@@ -218,10 +236,10 @@ export function NumerologyHistory({ refreshTrigger }: NumerologyHistoryProps) {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12
+      transition: { 
+        type: "spring" as const,
+        stiffness: 300,
+        damping: 24
       }
     }
   };
@@ -301,6 +319,7 @@ export function NumerologyHistory({ refreshTrigger }: NumerologyHistoryProps) {
                       <TableHead>{t('results.expression')}</TableHead>
                       <TableHead>{t('results.intimate')}</TableHead>
                       <TableHead>{t('results.realization')}</TableHead>
+                      <TableHead>{t('results.heredityNumber')}</TableHead>
                       <TableHead>{t('history.table.createdAt')}</TableHead>
                       <TableHead className="text-right">{t('history.table.actions')}</TableHead>
                     </TableRow>
@@ -344,6 +363,13 @@ export function NumerologyHistory({ refreshTrigger }: NumerologyHistoryProps) {
                               <span className="font-medium">{reading.readings.realization.value}</span>
                               <span className="text-sm text-blue-500">({reading.readings.realization.pillar})</span>
                               <span className="text-sm text-red-500">({reading.readings.realization.inclusion})</span>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-baseline gap-1">
+                              <span className="font-medium">{reading.readings.heredityNumber.value}</span>
+                              <span className="text-sm text-blue-500">({reading.readings.heredityNumber.pillar})</span>
+                              <span className="text-sm text-red-500">({reading.readings.heredityNumber.inclusion})</span>
                             </div>
                           </TableCell>
                           <TableCell>{formatDate(reading.createdAt)}</TableCell>

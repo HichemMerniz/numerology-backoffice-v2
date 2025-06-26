@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Download, X } from "lucide-react";
 import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
-import { NumerologyGrid } from "../numerology/NumerologyGrid";
+// import { NumerologyGrid } from "../numerology/NumerologyGrid";
 
 type HistoryEntry = {
   id: string;
@@ -43,6 +43,24 @@ type HistoryEntry = {
       value: string;
       pillar: number;
       inclusion: number;
+    };
+    heredityNumber: {
+      name: string;
+      value: number;
+      pillar: number;
+      inclusion: number;
+    };
+    inclusionGrid: {
+      name: string;
+      values: number[];
+      total: number;
+    };
+    letterAnalysis: {
+      name: string;
+      values: {
+        letter: string;
+        value: number;
+      }[];
     };
   };
 };
@@ -104,12 +122,15 @@ export function ReadingDetailsModal({
               </DialogHeader>
 
               <div className="py-6">
-                <NumerologyGrid
+                {/* <NumerologyGrid
                   lifePath={reading.readings.lifePath}
                   expression={reading.readings.expression}
                   intimate={reading.readings.intimate}
                   realization={reading.readings.realization}
-                />
+                  heredityNumber={reading.readings.heredityNumber}
+                  inclusionGrid={reading.readings.inclusionGrid}
+                  letterAnalysis={reading.readings.letterAnalysis}
+                /> */}
               </div>
 
               {onGeneratePDF && (

@@ -28,11 +28,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       opacity: 1, 
       y: 0,
       transition: { 
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 24,
         duration: 0.4,
-        when: "beforeChildren",
+        when: "beforeChildren" as const,
         staggerChildren: 0.1
       }
     },
@@ -45,7 +45,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       opacity: 1, 
       y: 0,
       transition: { 
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 24
       }

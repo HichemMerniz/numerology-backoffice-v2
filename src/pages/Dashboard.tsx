@@ -121,6 +121,7 @@ export default function Dashboard() {
     setIsLoading(true);
     try {
       const data = await getNumerologyData(auth.token, formData);
+      console.log('Numerology data:', data);
       setResult(data);
       toast({
         title: "Succès",
@@ -573,24 +574,52 @@ export default function Dashboard() {
                       <div className="p-6 rounded-xl bg-primary/5 border border-primary/10 shadow-sm">
                         <NumerologyGrid
                           lifePath={{
-                            value: result.lifePath || 0,
-                            pillar: result.lifePath || 0,
-                            inclusion: result.lifePath || 0
+                            name: t("results.lifePath"),
+                            value: result.lifePath?.number || 0,
+                            pillar: result.lifePath?.pillar || 0,
+                            inclusion: result.lifePath?.inclusion || 0
                           }}
                           expression={{
-                            value: (result.expression || 0).toString(),
-                            pillar: (result.expression || 0).toString(),
-                            inclusion: result.expression || 0
+                            name: t("results.expression"), 
+                            value: result.expression?.number || 0,
+                            pillar: result.expression?.pillar?.toString() || "",
+                            inclusion: result.expression?.inclusion || 0
                           }}
                           intimate={{
-                            value: result.intimate || 0,
-                            pillar: result.intimate || 0,
-                            inclusion: result.intimate || 0
+                            name: t("results.intimate"),
+                            value: result.intimate?.number || 0,
+                            pillar: result.intimate?.pillar || 0,
+                            inclusion: result.intimate?.inclusion || 0
                           }}
                           realization={{
-                            value: (result.realization || 0).toString(),
-                            pillar: result.realization || 0,
-                            inclusion: result.realization || 0
+                            name: t("results.realization"),
+                            value: result.realization?.number || 0,
+                            pillar: result.realization?.pillar || 0,
+                            inclusion: result.realization?.inclusion || 0
+                          }}
+                          heredityNumber={{
+                            value: result.heredityNumber?.number || 0,
+                            description: t("results.heredityDescription"),
+                            pillar: result.heredityNumber?.pillar || 0,
+                            inclusion: result.heredityNumber?.inclusion || 0
+                          }}
+                          inclusionGrid={{
+                            grid: result.inclusionGrid?.grid || {},
+                            pillars: {
+                              physical: result.inclusionGrid?.pillars?.physical || [],
+                              emotional: result.inclusionGrid?.pillars?.emotional || [],
+                              mental: result.inclusionGrid?.pillars?.mental || [],
+                              intuitive: result.inclusionGrid?.pillars?.intuitive || []
+                            },
+                            legend: result.inclusionGrid?.legend || [],
+                            total: result.inclusionGrid?.total || 0
+                          }}
+                          letterAnalysis={{
+                            vowels: result.letterAnalysis?.vowels || [],
+                            consonants: result.letterAnalysis?.consonants || [],
+                            totalVowels: result.letterAnalysis?.totalVowels || 0,
+                            totalConsonants: result.letterAnalysis?.totalConsonants || 0,
+                            interpretation: result.letterAnalysis?.interpretation || ""
                           }}
                         />
                       </div>

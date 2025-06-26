@@ -83,10 +83,14 @@ const Login = () => {
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
+    visible: { 
+      y: 0, 
       opacity: 1,
-      transition: { type: "spring", stiffness: 300, damping: 24 }
+      transition: { 
+        type: "spring" as const,
+        stiffness: 300,
+        damping: 24
+      }
     }
   };
 
